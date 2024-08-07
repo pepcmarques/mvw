@@ -1,0 +1,16 @@
+{% extends 'core/base.html'%}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+<form method="post">
+	{% csrf_token %}
+	{{ form|crispy }}
+	<a href="{% url 'accounts:forgotten' %}"><span class="float-left">Forget your password?</span></a>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock content %}

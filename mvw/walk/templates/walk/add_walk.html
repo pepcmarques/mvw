@@ -1,0 +1,15 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1>Walk</h1>
+    <form action="{% url 'walk:add-walk' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" class="btn btn-success">
+    </form>
+
+{% endblock content %}

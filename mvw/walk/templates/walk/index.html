@@ -1,0 +1,41 @@
+<!-- templates/dashboard.html -->
+{% extends 'core/base.html'%}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+<div>
+    <div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
+            <path fill-opacity="0" stroke-width="2" stroke="#bbb" d="M10,10h80v10h-80v10h80v10h-80v10h80"/>
+            <path id="walk-path" fill-opacity="0" stroke-width="3" stroke="#327838" d="M10,10h80v10h-80v10h80v10h-80v10h80"/>
+        </svg>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+<script>
+var bar = new ProgressBar.Path('#walk-path', {
+    easing: 'easeInOut',
+    duration: 1400
+});
+
+var walked_distance = "{{walked_distance}}";
+const total = 10;
+var percent = (total / 100) * walked_distance
+
+if (percent > 1) {
+    percent = 1;
+}
+
+bar.set(0);
+bar.animate(percent);  // Number from 0.0 to 1.0
+</script>
+
+{% endblock javascript %}

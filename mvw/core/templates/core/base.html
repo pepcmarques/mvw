@@ -1,0 +1,52 @@
+{% load static %}
+
+{% block head %}
+    <meta charset="utf-8">
+    <title>{% block title %}Circularis{% endblock %}</title>
+
+    <meta name="Description" content="Circularis.">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+    {% block meta %}
+    {% endblock %}
+
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/baseit.css' %}">
+
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    {% block stylesheet %}
+    {% endblock %}
+{% endblock %}
+
+
+{% block body %}
+  {% include 'core/includes/header.html' %}
+  {% include 'core/includes/messages.html' %}
+
+  <div class="imgheader">
+  {% block imgheader %}
+  {% endblock  %}
+  </div>
+
+  <div class="content">
+  {% block content %}
+  {% endblock %}
+  </div>
+
+  {% block fullwidthfooter %}
+  {% endblock %}
+
+  {% include 'core/includes/footer.html' %}
+
+  {% block javascript %}
+  {% endblock %}
+
+{% endblock body %}
