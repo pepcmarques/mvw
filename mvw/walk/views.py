@@ -28,6 +28,9 @@ def walk_chart(request):
 def walk_bar_chart(walks):
     df = pd.DataFrame.from_records(walks.values())
 
+    if df.shape == (0, 0):
+        return None, None
+
     labels = [d for d in df["walkDate"]]
     data = [d for d in df["distance"]]
 
@@ -42,7 +45,7 @@ def home(request):
 
 def dashboard(request):
     walks = get_walks(request)
-    chart_labels, chart_data  = walk_bar_chart(walks)
+    chart_labels, chart_data = walk_bar_chart(walks)
     return render(request,
                   "walk/dashboard.html",
                   {"walks": walks, "chart_labels": chart_labels, "chart_data": chart_data}

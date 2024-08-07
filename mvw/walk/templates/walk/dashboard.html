@@ -7,33 +7,40 @@
 
 {% block content %}
 
-<div>
+{% if walks %}
     <div>
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">Time (minutes)</th>
-                <th scope="col">Distance (Km)</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for walk in walks %}
-            <tr>
-                <th scope="row">{{forloop.counter}}</th>
-                <td>{{walk.walkDate}}</td>
-                <td>{{walk.minutes}}</td>
-                <td>{{walk.distance}}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div>
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time (minutes)</th>
+                    <th scope="col">Distance (Km)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for walk in walks %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{walk.walkDate}}</td>
+                    <td>{{walk.minutes}}</td>
+                    <td>{{walk.distance}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <canvas id="walk-chart" data-url="{% url 'walk:walk-chart' %}"></canvas>
+        </div>
     </div>
+    {% else %}
     <div>
-        <canvas id="walk-chart" data-url="{% url 'walk:walk-chart' %}"></canvas>
+        <h3>You did not registered any walk...</h3>
+        <h3>Kindly, click on "Add Walk" on the menu, and add the information about your walk.</h3>
     </div>
-</div>
+    {% endif %}
 
 {% endblock content %}
 
