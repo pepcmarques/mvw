@@ -16,8 +16,7 @@ urlpatterns = [
     path('users', list_users, name='list_users'),
     path('create/', create_user, name='create_user'),
     path('update/', update_user, name='update_user'),
-    path('update/<int:user_id>/', update_user, name='update_user'),
-    path('delete/<int:user_id>/', delete_user, name='delete_user'),
+    path('delete/', delete_user, name='delete_user'),
 
     path('forgotten/', forgotten_password, name='forgotten'),
     path('forgotten/done/', TemplateView.as_view(template_name='forgotten_password_done.html'),

@@ -88,14 +88,16 @@ class UsersForm(forms.ModelForm):
 class UsersUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name']
+        fields = ['username', 'email', 'first_name', 'last_name']
         labels = {
             'username': 'Username',
             'first_name': 'First name',
+            'last_name': 'Last name',
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['username'].disabled = True
         self.fields['email'].disabled = True
 
 

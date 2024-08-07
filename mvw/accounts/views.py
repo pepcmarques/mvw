@@ -172,11 +172,11 @@ def create_user(request):
 
 @login_required()
 def update_user(request):
-    user = User.objects.get(id=request.user.id)
+    user = request.user
     form = UsersUpdateForm(request.POST or None, instance=user)
     if form.is_valid():
         form.save()
-        return redirect(reverse('base:home'))
+        return redirect(reverse('walk:home'))
     return render(request, 'accounts/user-form.html', {'form': form, 'user': user})
 
 
@@ -193,10 +193,11 @@ def password_change(request, user_id):
     return render(request, 'accounts/password_change.html', {'form': form, 'user': user})
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def delete_user(request, user_id):
-    user = User.objects.get(id=user_id)
+# @user_passes_test(lambda u: u.is_superuser)
+def delete_user(request):
+    user = request.user
     if request.method == 'POST':
         user.delete()
-        return redirect('list_users')
+        auth.logout(request)
+        return redirect(reverse('core:index'))
     return render(request, 'accounts/user-delete-confirm.html', {'user': user})
