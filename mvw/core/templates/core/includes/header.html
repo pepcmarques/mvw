@@ -9,13 +9,13 @@
               {% if user.is_authenticated %}
               <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'walk:home' %}">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{% url 'walk:home' %}">Home</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'walk:dashboard' %}">Dashboard <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{% url 'walk:dashboard' %}">Dashboard</span></a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'walk:add-walk' %}">Add Walk <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{% url 'walk:add-walk' %}">Add Walk</span></a>
                   </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -42,9 +42,17 @@
             {% else %}
               <ul class="navbar-nav mr-auto">
               </ul>
-              <span class="navbar-text"><a href="{% url 'accounts:login' %}" class="nav-link">Sign in</a></span>
-              <span class="navbar-text username-divider"></span>
-              <span class="navbar-text"><a href="{% url 'accounts:signup' %}" class="nav-link" style="margin-right: 5px;">Sign up</a></span>
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="nav-item">
+                      <a href="{% url 'accounts:login' %}" class="nav-link">Sign in</a>
+                  </li>
+                  <li>
+                    <span class="navbar-text username-divider"></span>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'accounts:signup' %}" class="nav-link">Sign up</a>
+                  </li>
+              </ul>
             {% endif %}
           </div>
     </div>
