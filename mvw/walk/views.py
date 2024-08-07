@@ -37,12 +37,14 @@ def walk_bar_chart(walks):
     return labels, data
 
 
+@login_required()
 def home(request):
     walks = get_walks(request)
     total = sum([d.distance for d in walks])
     return render(request, "walk/index.html", {"walks": walks, "walked_distance": total})
 
 
+@login_required()
 def dashboard(request):
     walks = get_walks(request)
     chart_labels, chart_data = walk_bar_chart(walks)

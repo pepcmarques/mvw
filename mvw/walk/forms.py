@@ -15,6 +15,11 @@ class WalkForm(ModelForm):
     class Meta:
         model = Walk
         fields = ["walkDate", "distance", "minutes"]
+        labels = {
+            'walkDate': 'Date or your walk',
+            'distance': 'Rounded distance (Km)',
+            'minutes': 'Walk duration (minutes)',
+        }
         widgets = {
             "walkDate": DateInput(),
             "distance": forms.Select(choices=list(zip(DISTANCE_CHOICES, DISTANCE_CHOICES)), attrs={'class': 'form-control'}),
