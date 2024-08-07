@@ -22,13 +22,14 @@
                 <li>
                   <span class="navbar-text username-divider"></span>
                 </li>
-
                 <li>
                   <span class="navbar-text">Hi {{ request.user.username }}</span>
                 </li>
-
                 <span class="navbar-text username-divider"></span>
-
+                <li>
+                    <a href="{% url 'accounts:profile' %}"><span class="navbar-text"><i class="fa fa-cog" style="margin-top:5px;"></i></span></a>
+                </li>
+                <span class="navbar-text username-divider"></span>
                 <li>
                   <a href="{% url 'logout' %}">
                       <div style="margin-top: 5px;">
