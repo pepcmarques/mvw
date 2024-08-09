@@ -1,0 +1,68 @@
+[
+{
+  "model": "walk.visitingpoint",
+  "pk": 1,
+  "fields": {
+    "name": "William Mackie Park",
+    "order_no": 1,
+    "km": 0,
+    "picture_name": "01_wmp.png",
+    "description": ""
+  }
+},
+{
+  "model": "walk.visitingpoint",
+  "pk": 2,
+  "fields": {
+    "name": "Marpole Park",
+    "order_no": 2,
+    "km": 1,
+    "picture_name": "02_mp.jpeg",
+    "description": ""
+  }
+},
+{
+  "model": "walk.visitingpoint",
+  "pk": 3,
+  "fields": {
+    "name": "Marpole Neighbourhood House",
+    "order_no": 3,
+    "km": 1,
+    "picture_name": "03_mnh.jpeg",
+    "description": ""
+  }
+},
+{
+  "model": "walk.visitingpoint",
+  "pk": 4,
+  "fields": {
+    "name": "Vancouver Public Library",
+    "order_no": 4,
+    "km": 1,
+    "picture_name": "04_vpl.png",
+    "description": ""
+  }
+},
+{
+  "model": "walk.visitingpoint",
+  "pk": 5,
+  "fields": {
+    "name": "Historic Joy Kogawa House",
+    "order_no": 5,
+    "km": 1,
+    "picture_name": "05_hjkh.jpeg",
+    "description": ""
+  }
+},
+{
+  "model": "walk.visitingpoint",
+  "pk": 6,
+  "fields": {
+    "name": "Marpole Museum",
+    "order_no": 6,
+    "km": 1,
+    "picture_name": "06_mm.jpeg",
+    "description": ""
+  }
+}
+]
