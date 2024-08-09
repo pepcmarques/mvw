@@ -1,12 +1,13 @@
 import pandas as pd
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Func, Sum
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import JsonResponse
 
 from .forms import WalkForm
-from .models import Walk
+from .models import Walk, VisitingPoint
 
 
 def get_walks(request):
@@ -37,11 +38,29 @@ def walk_bar_chart(walks):
     return labels, data
 
 
+def get_goal_and_points():
+    # points = VisitingPoint.objects.all().order_by('order_no').values()
+    points = (
+        VisitingPoint.objects.annotate(
+            cumsum=Func(
+                Sum('km'),
+                template='%(expressions)s OVER (ORDER BY %(order_by)s)',
+                order_by="id"
+            )
+        ).values('order_no', 'picture_name', 'name', 'km', 'description', 'cumsum').order_by('order_no', 'cumsum')
+    )
+    print(points)
+    goal = sum([p["km"] for p in points])
+    return goal, points
+
+
 @login_required()
 def home(request):
     walks = get_walks(request)
+    goal_km, points = get_goal_and_points()
     total = sum([d.distance for d in walks])
-    return render(request, "walk/index.html", {"walks": walks, "walked_distance": total})
+    return render(request, "walk/index.html", {"walks": walks, "walked_distance": total, "goal_distance": goal_km,
+                                               "points": points})
 
 
 @login_required()

@@ -4,15 +4,49 @@
 {% load crispy_forms_tags %}
 
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 
 <div>
     <div>
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
-            <path fill-opacity="0" stroke-width="2" stroke="#bbb" d="M10,10h80v10h-80v10h80v10h-80v10h80"/>
-            <path id="walk-path" fill-opacity="0" stroke-width="3" stroke="#327838" d="M10,10h80v10h-80v10h80v10h-80v10h80"/>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 200 60">
+            <path fill-opacity="0" stroke-width="2" stroke="#bbb" d="M10,10h180v10h-180v10h180v10h-180v10h180"/>
+            <path id="walk-path" fill-opacity="0" stroke-width="3" stroke="#327838" d="M10,10h180v10h-180v10h180v10h-180v10h180"/>
         </svg>
+    </div>
+    <div>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th style="width: 10%" scope="col">#</th>
+                <th style="width: 10%" scope="col">Image</th>
+                <th style="width: 30%" scope="col">Name</th>
+                <th style="width: 50%" scope="col">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for point in points %}
+                {% with next_element=points|next:forloop.counter0 %}
+                {% if walked_distance >= point.cumsum %}
+                <tr>
+                    <td style="vertical-align: middle;" scope="row">{{forloop.counter}}</td>
+                    <td><img src="{% static 'img/points/' %}{{ point.picture_name }}" width="100px" /></td>
+                    <td style="vertical-align: middle;">{{point.name}}</td>
+                    <td style="vertical-align: middle;">
+                        {% if next_element %}
+                        Keep walking, your next stop is <b>{{next_element.name}}</b>.
+                        {% else %}
+                            {{point.description}}.<br />
+                            This is your last stop! Thank you for participating on Marpole Virtual Walk.
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% endwith %}
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -21,6 +55,7 @@
 {% block javascript %}
 
 {{ walked_distance|json_script:"walked" }}
+{{ goal_distance|json_script:"goal" }}
 
 <script>
 var bar = new ProgressBar.Path('#walk-path', {
@@ -29,9 +64,9 @@ var bar = new ProgressBar.Path('#walk-path', {
 });
 
 const walked_distance = JSON.parse(document.getElementById('walked').textContent);
+const total = JSON.parse(document.getElementById('goal').textContent);;
 
-const total = 10;
-var percent = (total / 100) * walked_distance
+var percent = (walked_distance * 1) / total
 
 if (percent > 1) {
     percent = 1;
