@@ -31,13 +31,13 @@
                 {% if walked_distance >= point.cumsum %}
                 <tr>
                     <td style="vertical-align: middle;" scope="row">{{forloop.counter}}</td>
-                    <td><img src="{% static 'img/points/' %}{{ point.picture_name }}" width="100px" /></td>
+                    <td  style="vertical-align: middle;" ><img src="{% static 'img/points/' %}{{ point.picture_name }}" width="100px" /></td>
                     <td style="vertical-align: middle;">{{point.name}}</td>
                     <td style="vertical-align: middle;">
+                        {{point.description}}.<br />
                         {% if next_element %}
-                        Keep walking, your next stop is <b>{{next_element.name}}</b>.
+                            Next stop is <b>{{next_element.name}}</b>.
                         {% else %}
-                            {{point.description}}.<br />
                             This is your last stop! Thank you for participating on Marpole Virtual Walk.
                         {% endif %}
                     </td>
