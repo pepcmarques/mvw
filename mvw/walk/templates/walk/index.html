@@ -8,6 +8,11 @@
 
 {% block content %}
 
+{% if walked_number == 0 %}
+<div>
+    <h3>You did not register any walk. Please add a walk to see your progress.</h3>
+</div>
+{% else %}
 <div>
     <div>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 200 60">
@@ -28,10 +33,10 @@
             <tbody>
             {% for point in points %}
                 {% with next_element=points|next:forloop.counter0 %}
-                {% if walked_distance >= point.cumsum %}
+                {% if walked_number >= forloop.counter %}
                 <tr>
                     <td style="vertical-align: middle;" scope="row">{{forloop.counter}}</td>
-                    <td  style="vertical-align: middle;" ><img src="{% static 'img/points/' %}{{ point.picture_name }}" width="100px" /></td>
+                    <td  style="vertical-align: middle;" ><img src="{% static 'img/points/' %}{{ point.picture_name }}" width="150px" /></td>
                     <td style="vertical-align: middle;">{{point.name}}</td>
                     <td style="vertical-align: middle;">
                         {{point.description}}.<br />
@@ -49,12 +54,13 @@
         </table>
     </div>
 </div>
+{% endif %}
 
 {% endblock content %}
 
 {% block javascript %}
 
-{{ walked_distance|json_script:"walked" }}
+{{ walked_number|json_script:"walked" }}
 {{ goal_distance|json_script:"goal" }}
 
 <script>
@@ -63,10 +69,10 @@ var bar = new ProgressBar.Path('#walk-path', {
     duration: 1400
 });
 
-const walked_distance = JSON.parse(document.getElementById('walked').textContent);
+const walked_number = JSON.parse(document.getElementById('walked').textContent);
 const total = JSON.parse(document.getElementById('goal').textContent);;
 
-var percent = (walked_distance * 1) / total
+var percent = (walked_number * 1) / total
 
 if (percent > 1) {
     percent = 1;

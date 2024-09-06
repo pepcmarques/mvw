@@ -39,7 +39,8 @@ def walk_bar_chart(walks):
 
 
 def get_goal_and_points():
-    # points = VisitingPoint.objects.all().order_by('order_no').values()
+    points = VisitingPoint.objects.all().order_by('order_no').values()
+    """
     points = (
         VisitingPoint.objects.annotate(
             cumsum=Func(
@@ -49,17 +50,17 @@ def get_goal_and_points():
             )
         ).values('order_no', 'picture_name', 'name', 'km', 'description', 'cumsum').order_by('order_no', 'cumsum')
     )
-    print(points)
     goal = sum([p["km"] for p in points])
+    """
+    goal = len(points)
     return goal, points
 
 
 @login_required()
 def home(request):
     walks = get_walks(request)
-    goal_km, points = get_goal_and_points()
-    total = sum([d.distance for d in walks])
-    return render(request, "walk/index.html", {"walks": walks, "walked_distance": total, "goal_distance": goal_km,
+    goal, points = get_goal_and_points()
+    return render(request, "walk/index.html", {"walks": walks, "walked_number": len(walks), "goal_distance": goal,
                                                "points": points})
 
 
